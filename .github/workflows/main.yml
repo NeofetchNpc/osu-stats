@@ -1,0 +1,32 @@
+name: Update osu-stats gist
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install  
+
+      - name: Update Gist
+        run: npm start
+        env:
+          GIST_ID: a227d206dff8ebea2129f24cd336f430
+          OSU_USERNAME: NeofetchNpc
+          OSU_MODE: osu
+          GH_TOKEN: ${{ secrets.NPC_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
