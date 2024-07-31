@@ -15,13 +15,21 @@ const main = async () => {
     await auth.login(CLIENT_ID, CLIENT_SECRET, SCOPE_LIST);
     const data = await v2.user.details(OSU_USERNAME, OSU_MODE);
 
-    // Menyusun data
+    // Menyusun data dengan pemeriksaan untuk mencegah kesalahan
+    const level = data.statistics.level || { current: 0, progress: 0 };
+    const globalRank = data.statistics.global_rank || 0;
+    const countryRank = data.statistics.country_rank || 0;
+    const pp = data.statistics.pp || 0;
+    const accuracy = data.statistics.hit_accuracy || 0;
+    const playTime = data.statistics.play_time || 0;
+    const playCount = data.statistics.play_count || 0;
+
     const lines = [
-      `${"Level".padStart(9)} 🎮 | Lv${data.statistics.level.current || 0} ${generateBarChart(data.statistics.level.progress, 21)} ${data.statistics.level.progress}%\n`,
-      `${"Rank".padStart(9)} 📈 | ${("#" + numberWithCommas(data.statistics.global_rank))} / ${getFlagEmoji(data.country.code)} #${numberWithCommas(data.statistics.country_rank).padEnd(7)} (${numberWithCommas(data.statistics.pp)}pp)\n`,
-      `${"Accuracy".padStart(9)} 🎯 | ${Math.round(parseFloat(data.statistics.hit_accuracy) * 100) / 100}%\n`,
-      `${"Playtime".padStart(9)} 🕓 | ${numberWithCommas(Math.floor(parseFloat(data.statistics.play_time) / 60 / 60))} hr\n`,
-      `${"Playcount".padStart(9)} 💾 | ${numberWithCommas(data.statistics.play_count)}\n`,
+      `${"Level".padStart(9)} 🎮 | Lv${level.current} ${generateBarChart(level.progress, 21)} ${level.progress}%\n`,
+      `${"Rank".padStart(9)} 📈 | ${("#" + numberWithCommas(globalRank))} / ${getFlagEmoji(data.country.code)} #${numberWithCommas(countryRank).padEnd(7)} (${numberWithCommas(pp)}pp)\n`,
+      `${"Accuracy".padStart(9)} 🎯 | ${Math.round(parseFloat(accuracy) * 100) / 100}%\n`,
+      `${"Playtime".padStart(9)} 🕓 | ${numberWithCommas(Math.floor(playTime / 60 / 60))} hr\n`,
+      `${"Playcount".padStart(9)} 💾 | ${numberWithCommas(playCount)}\n`,
     ];
 
     const box = new GistBox({ id: GIST_ID, token: GH_TOKEN });
