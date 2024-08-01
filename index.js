@@ -10,8 +10,8 @@ const main = async () => {
   console.log(`Getting data for ${OSU_USERNAME}`);
 
   try {
-    // Auth via client
-    await auth.login(CLIENT_ID, CLIENT_SECRET, { scopes: SCOPE_LIST });
+    // Auth via client with scope array
+    await auth.login(CLIENT_ID, CLIENT_SECRET, SCOPE_LIST);
     const data = await v2.user.details(OSU_USERNAME, OSU_MODE);
 
     // Menyusun data dengan pemeriksaan untuk mencegah kesalahan
