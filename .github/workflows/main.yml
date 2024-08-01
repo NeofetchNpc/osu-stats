@@ -25,8 +25,8 @@ jobs:
         run: npm start
         env:
           GIST_ID: a227d206dff8ebea2129f24cd336f430
-          OSU_USERNAME: NeofetchNpc
+          OSU_USERNAME: weikuu
           OSU_MODE: osu
-          GH_TOKEN: ${{ secrets.NPC_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
