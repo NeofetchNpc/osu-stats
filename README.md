@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400" src="./example.png">
+  <img width="400" src="https://raw.githubusercontent.com/AiverAiva/osu-box/main/example.png">
   <h3 align="center">📌osu-box🎶</h3>
   <p align="center">
    <img src="https://img.shields.io/badge/language-javascript-blue?style"/>
