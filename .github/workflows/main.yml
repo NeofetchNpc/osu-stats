@@ -2,8 +2,9 @@ name: Update osu-stats gist
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-  workflow_dispatch:
+    - cron: '0 * * * *'  # hourly
+  push:
+    branches: main
 
 jobs:
   build:
