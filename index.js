@@ -14,6 +14,10 @@ const main = async () => {
     await auth.login(CLIENT_ID, CLIENT_SECRET, SCOPE_LIST);
     const data = await v2.user.details(OSU_USERNAME, OSU_MODE);
 
+    if (!data || !data.statistics) {
+      throw new Error('No data or statistics found for the user.');
+    }
+
     // Menyusun data dengan pemeriksaan untuk mencegah kesalahan
     const level = data.statistics.level || { current: 0, progress: 0 };
     const globalRank = data.statistics.global_rank || 0;
@@ -42,7 +46,7 @@ const main = async () => {
     console.log('Gist updated!');
   } catch (err) {
     console.error('Error getting or updating the Gist:');
-    console.error(err);
+    console.error(err.message || err);
   }
 };
 
