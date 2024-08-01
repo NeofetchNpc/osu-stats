@@ -7,12 +7,11 @@ const SCOPE_LIST = ['public'];
 const main = async () => {
   const { GIST_ID, OSU_USERNAME, OSU_MODE, GH_TOKEN, CLIENT_ID, CLIENT_SECRET } = process.env;
 
-  // Menampilkan informasi pengguna osu
   console.log(`Getting data for ${OSU_USERNAME}`);
 
   try {
     // Auth via client
-    await auth.login(CLIENT_ID, CLIENT_SECRET, SCOPE_LIST);
+    await auth.login(CLIENT_ID, CLIENT_SECRET, { scopes: SCOPE_LIST });
     const data = await v2.user.details(OSU_USERNAME, OSU_MODE);
 
     // Menyusun data dengan pemeriksaan untuk mencegah kesalahan
@@ -59,12 +58,6 @@ function getFlagEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
-/**
- * Generate a bar chart representation of the percentage.
- * @param {number} percent - The percentage to display.
- * @param {number} size - The total size of the bar chart.
- * @returns {string} - The bar chart string.
- */
 function generateBarChart(percent, size) {
   const syms = "░▏▎▍▌▋▊▉█";
 
